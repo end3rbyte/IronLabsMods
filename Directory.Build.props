@@ -1,0 +1,17 @@
+<Project>
+  <PropertyGroup>
+    <LangVersion>10</LangVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(MSBuildProjectName)' != 'IronLabs.SharedLib' and '$(MSBuildProjectName)' != 'IronLabs.Build'">
+    <ILRepackTargetsFile>$(MSBuildThisFileDirectory)IronLabs.SharedLib\ILRepack.targets</ILRepackTargetsFile>
+  </PropertyGroup>
+  <ItemGroup Condition="'$(MSBuildProjectName)' != 'IronLabs.SharedLib' and '$(MSBuildProjectName)' != 'IronLabs.Build'">
+    <ProjectReference Include="$(MSBuildThisFileDirectory)IronLabs.SharedLib\IronLabs.SharedLib.csproj">
+      <Private>false</Private>
+    </ProjectReference>
+    <PackageReference Include="ILRepack.Lib.MSBuild.Task" Version="2.0.44">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+  </ItemGroup>
+</Project>
