@@ -1,25 +1,24 @@
-# Plugin NoServerPassword
+# NoServerPassword
 
-IronLabs.NoServerPassword allows a public or crossplay Valheim server to be
-started with an empty password from the in-game server creation screen.
+Allows public or crossplay Valheim servers to start with an empty password.
 
-The plugin only relaxes validation for an empty password. Non-empty passwords
-continue to use Valheim's vanilla minimum-length and world-name validation.
-Worlds with a save-data error are not allowed to bypass the normal start checks.
+## Features
 
-Install the standalone `IronLabs.NoServerPassword.dll` plugin. The server then
-appears without password protection, so anyone who
-can discover or reach it can attempt to connect.
+- Accepts an empty password in Valheim's server creation screen.
+- Preserves vanilla validation for non-empty passwords and world names.
+- Keeps normal start checks when world save data has an error.
+- Supports dedicated servers and peer-hosted worlds.
+- Requires no installation on joining clients.
 
-Joining players do not need the mod. A player hosting from the in-game menu must
-install it because their game process acts as the server. Dedicated servers must
-also install it.
+A password-free public server can be reached by anyone who discovers it. Use normal access-control and moderation tools when open access is intentional.
 
-## Installation Sides
+## Installation
 
 | Client required | Server required |
 |---|---|
 | No | Yes |
+
+The hosting client counts as the server in a peer-hosted world.
 
 ## Contact
 

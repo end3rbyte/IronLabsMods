@@ -1,31 +1,27 @@
-# Plugin SavesCharactersOnStop
+# SavesCharactersOnStop
 
-Saves every connected [ServerCharacters](https://github.com/blaxxun-boop/ServerCharacters/) profile before a dedicated Valheim
-server stops or restarts. It complements ServerCharacters and prevents a
-controlled shutdown from restoring players to an older character state.
+Saves connected ServerCharacters profiles before a dedicated server stops or restarts.
 
-## Installation Sides
+## Features
 
-| Client required | Server required |
+- Requests a synchronous profile save from every connected client.
+- Waits for ServerCharacters to confirm each profile transfer.
+- Disconnects saved players before the application exits.
+- Performs Valheim's normal world save and shutdown afterward.
+- Continues shutdown after a 90-second timeout and logs unconfirmed profiles.
+- Supports save-only, graceful quit, and world-only supervisor requests.
+
+## Requirements
+
+| Dependency | Purpose |
 |---|---|
-| Yes | Yes |
+| [ServerCharacters](https://github.com/blaxxun-boop/ServerCharacters/) | Stores authoritative character profiles on the server. |
+| Compatible process supervisor | Coordinates service stops with the plugin. |
 
-Install the plugin together with [ServerCharacters](https://github.com/blaxxun-boop/ServerCharacters/) on every client and on the
-dedicated server. Peer-hosted worlds are unaffected.
-
-## Behavior
-
-| Stage | Behavior |
-|---|---|
-| Stop request | The process supervisor asks the plugin to save connected characters. |
-| Client save | Each client writes its profile and sends it through ServerCharacters. |
-| Confirmation | The server confirms each ordered profile transfer and disconnects that player. |
-| Completion | Valheim performs its normal application shutdown and world save. |
-| Timeout | After 90 seconds, unconfirmed players are logged and shutdown continues. |
-
-The plugin is automatic and has no configuration. It cannot recover data after
-Valheim or the operating system has already crashed. A compatible process
-supervisor is required on the dedicated-server host.
+- The mod is automatic and has no configuration.
+- It affects dedicated servers only; peer-hosted worlds are unaffected.
+- It cannot recover data after a process or operating-system crash.
+- Install the supervisor for the first time while no players are connected.
 
 ## Coordination Protocol
 
@@ -34,22 +30,25 @@ Runtime files are stored under `BepInEx/run/SavesCharactersOnStop/`.
 | File | Purpose |
 |---|---|
 | `stop.supported` | Identifies the active Valheim process. |
-| `stop.mode` | Optional one-shot `world` request that skips character saves. |
-| `stop.request` | Contains the unique `quit:` or `world:` request. |
-| `stop.ready` | Confirms the exact request after completion or timeout. |
+| `stop.mode` | Selects an optional one-shot world-only stop. |
+| `stop.request` | Contains the unique supervisor request. |
+| `stop.ready` | Confirms completion or timeout for that request. |
 
 | Request | Result |
 |---|---|
-| `save:<unique-value>` | Saves and disconnects all players, then keeps Valheim running. |
-| `quit:<unique-value>` | Saves and disconnects all players, then performs the vanilla shutdown. |
-| `world:<unique-value>` | Skips character saves and performs the vanilla shutdown. |
+| `save:<id>` | Saves and disconnects players while keeping Valheim running. |
+| `quit:<id>` | Saves and disconnects players, then shuts Valheim down. |
+| `world:<id>` | Skips character requests and performs the vanilla shutdown. |
 
-The supervisor must allow at least 100 seconds and must not forward the
-original stop signal after receiving the matching confirmation.
+The supervisor must allow at least 100 seconds and must not forward the original stop signal after receiving the matching confirmation.
 
-The first supervisor installation cannot protect the already running process.
-Install it while no players are connected; subsequent service stops and
-restarts are coordinated automatically.
+## Installation
+
+| Client required | Server required |
+|---|---|
+| Yes | Yes |
+
+Install matching versions together with ServerCharacters on every client and the dedicated server.
 
 ## Contact
 

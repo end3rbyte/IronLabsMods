@@ -39,7 +39,7 @@
     <ProjectReference Include="..\IronLabs.ExpandedServer\IronLabs.ExpandedServer.csproj"><Private>false</Private></ProjectReference>
     <ProjectReference Include="..\IronLabs.NoServerPassword\IronLabs.NoServerPassword.csproj"><Private>false</Private></ProjectReference>
     <ProjectReference Include="..\..\IronLabs-Private\IronLabs.WardenGameMode\IronLabs.WardenGameMode.csproj"><Private>false</Private></ProjectReference>
-    <ProjectReference Include="..\..\IronLabs-Private\IronLabs.Social\IronLabs.Social.csproj"><Private>false</Private></ProjectReference>
+    <ProjectReference Include="..\..\IronLabs-Private\IronLabs.Socialize\IronLabs.Socialize.csproj"><Private>false</Private></ProjectReference>
     <ProjectReference Include="..\..\IronLabs-Private\IronLabs.VanillaGameMode\IronLabs.VanillaGameMode.csproj"><Private>false</Private></ProjectReference>
     <ProjectReference Include="..\IronLabs.SealedTombstone\IronLabs.SealedTombstone.csproj"><Private>false</Private></ProjectReference>
     <ProjectReference Include="..\IronLabs.SavesCharactersOnStop\IronLabs.SavesCharactersOnStop.csproj"><Private>false</Private></ProjectReference>

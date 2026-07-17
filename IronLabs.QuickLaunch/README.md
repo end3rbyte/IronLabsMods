@@ -1,29 +1,23 @@
-# Plugin QuickLaunch
+# QuickLaunch
 
-Plugin logging is written to both BepInEx and `System.Diagnostics.Debug` through
-the `ModLog` wrapper.
+Automatically resumes the last local or multiplayer Valheim session.
 
-IronLabs.QuickLaunch automatically resumes the last Valheim session by default.
-Launch the game with `--quicklaunch false` to disable automatic session resume.
+## Features
 
-## Valheim.exe Command Arguments Added
+- Selects the remembered character automatically.
+- Reopens the remembered world for local sessions.
+- Reconnects to the first valid recent server for multiplayer sessions.
+- Falls back to the main menu when required data is unavailable.
+- Never stores or enters server passwords.
+- Remembers whether the last manually started session was local or multiplayer.
 
-| Argument | Value | Behavior |
-|---|---|---|
-| `--quicklaunch` | <code>true\|false</code> | Automatic session resume is enabled by default; set this argument to `false` to disable it. |
+## Valheim.exe Command Switches
 
-For a local session, it selects the remembered character and world. For a Join
-multi-player session, it selects the remembered character and reconnects to the first
-valid entry in Valheim's recent-server list.
+| Switch | Default | Purpose |
+|---|---:|---|
+| `--quicklaunch <true\|false>` | `true` | Enables automatic resume. Use `--quicklaunch false` to stop at the menu. |
 
-The plugin records whether a manually started session is local or multiplayer.
-Before that preference has been recorded, local play remains the fallback.
-
-QuickLaunch stops at the main menu if the remembered character, local world, or
-recent multiplayer server is unavailable. It does not store or manage server
-passwords.
-
-## Installation Sides
+## Installation
 
 | Client required | Server required |
 |---|---|

@@ -1,27 +1,36 @@
-# Plugin SealedTombstone
+# SealedTombstone
 
-IronLabs.SealedTombstone prevents players from looting another player's recent
-tombstone without permission.
+Protects recent tombstones from unauthorized players while allowing owner-approved access.
 
-When a player interacts with a locked tombstone, its online owner receives a
-Valheim vanilla Yes/No popup. Yes permanently unlocks that tombstone; No rejects
-the request. Requests expire after 30 seconds, and requesters must wait two
-minutes before sending another request.
+## Features
 
-Tombstones automatically become accessible after ten in-game days. Tombstones
-created before the plugin recorded a lock day remain protected until their owner
-accepts a request. Every participating client must have the plugin installed.
+- Locks each recent tombstone to its owner.
+- Sends the online owner a vanilla Yes/No access request.
+- Permanently unlocks the tombstone after owner approval.
+- Expires unanswered requests after 30 seconds.
+- Applies a two-minute request cooldown.
+- Makes tombstones public after ten in-game days.
+- Permanently blocks players who hurt or killed the owner during the two minutes before death.
 
-Any player who killed or injured the owner during the two minutes before their
-death is recorded on that tombstone's permanent deny list. Those players cannot
-send an access request for that tombstone, so its owner receives no popup from
-them.
+## Access Rules
 
-## Installation Sides
+| Situation | Result |
+|---|---|
+| Owner selects Yes | The tombstone permanently unlocks. |
+| Owner selects No | Access remains denied. |
+| Request times out | Access remains denied. |
+| Tombstone reaches ten days | It becomes publicly accessible. |
+| Requester is on the deny list | No request is sent to the owner. |
+
+Tombstones created before a lock day was recorded remain protected until their owner approves access.
+
+## Installation
 
 | Client required | Server required |
 |---|---|
 | Yes | Yes |
+
+Every participating client and the server must install matching versions.
 
 ## Contact
 

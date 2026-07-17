@@ -1,35 +1,23 @@
-# Plugin ExpandedServer
+# ExpandedServer
 
-IronLabs.ExpandedServer raises Valheim's server player limit from 10 to a
-configurable value that defaults to 20.
-It updates server admission checks and the capacities advertised through Steam
-and PlayFab.
+Raises Valheim's server capacity to a configurable player limit.
 
-Every connecting client must use a compatible mod setup. Values above 100 are
-limited to 100. Missing, non-numeric, zero, and negative values use the default
-of 20. PlayFab Party can impose a lower backend capacity than the configured
-limit.
+## Features
 
-Only the dedicated server or the player hosting the world configures the
-limit. Joining clients do not need the `--maxplayer` argument; they use the
-capacity advertised by the server through Steam or PlayFab.
+- Raises the default server limit from 10 to 20 players.
+- Updates admission checks and Steam or PlayFab advertised capacity.
+- Supports dedicated servers and peer-hosted worlds.
+- Limits configured values to a maximum of 100 players.
 
-## Valheim.exe Command Arguments Added
+## Valheim.exe Command Switches
 
-| Argument | Value | Behavior |
-|---|---|---|
-| `--maxplayer` | Integer from 1 to 100 | Sets the server or host player limit. Defaults to 20 when absent or invalid; values above 100 become 100. Clients do not use this argument. |
+| Switch | Default | Purpose |
+|---|---:|---|
+| `--maxplayer <1-100>` | `20` | Sets the capacity on the dedicated server or hosting client. Invalid values use 20; values above 100 use 100. |
 
-Example:
+Joining clients need the mod but do not use the switch. PlayFab Party may impose a lower backend capacity than the configured value.
 
-```text
-Valheim.exe --maxplayer 50
-```
-
-For a dedicated server, add the same argument to the server launch command.
-Do not add it to joining clients.
-
-## Installation Sides
+## Installation
 
 | Client required | Server required |
 |---|---|

@@ -1,4 +1,4 @@
-﻿
+
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IronLabs.QuickLaunch", "IronLabs.QuickLaunch\IronLabs.QuickLaunch.csproj", "{046ED613-45E5-48D3-9B7B-72703870DA05}"
 EndProject
@@ -20,7 +20,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IronLabs.Moderator", "IronL
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IronLabs.WardenGameMode", "..\IronLabs-Private\IronLabs.WardenGameMode\IronLabs.WardenGameMode.csproj", "{86006976-5150-4F0A-9A91-2104A9AC5C00}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IronLabs.Social", "..\IronLabs-Private\IronLabs.Social\IronLabs.Social.csproj", "{DA5DE9DF-7727-4D5F-8274-896B8EB80ED3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IronLabs.Socialize", "..\IronLabs-Private\IronLabs.Socialize\IronLabs.Socialize.csproj", "{DA5DE9DF-7727-4D5F-8274-896B8EB80ED3}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IronLabs.VanillaGameMode", "..\IronLabs-Private\IronLabs.VanillaGameMode\IronLabs.VanillaGameMode.csproj", "{3EF3F0B9-0D06-4746-AAE4-B5FAFD1F0F95}"
 EndProject
