@@ -1,6 +1,6 @@
 {
   "name": "ExpandedServer",
-  "version_number": "1.0.0",
+  "version_number": "1.0.1",
   "website_url": "https://github.com/end3rbyte/IronLabsMods/tree/main/IronLabs.ExpandedServer",
   "description": "Configure Valheim server capacity up to 100 players across Steam and PlayFab.",
   "dependencies": [

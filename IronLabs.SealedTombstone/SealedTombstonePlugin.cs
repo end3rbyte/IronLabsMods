@@ -8,7 +8,7 @@ namespace IronLabs.SealedTombstone
     {
         private const string PluginGuid = "IronLabs.SealedTombstone";
         private const string PluginName = "IronLabs.SealedTombstone";
-        private const string PluginVersion = "1.0.0";
+        private const string PluginVersion = "1.0.1";
 
 
         internal static ModLog Log { get; private set; }

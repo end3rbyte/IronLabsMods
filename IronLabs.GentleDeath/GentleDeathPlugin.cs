@@ -8,7 +8,7 @@ namespace IronLabs.GentleDeath
     {
         private const string PluginGuid = "IronLabs.GentleDeath";
         private const string PluginName = "IronLabs.GentleDeath";
-        private const string PluginVersion = "1.0.4";
+        private const string PluginVersion = "1.0.5";
 
         internal static ModLog Log { get; private set; }
 
