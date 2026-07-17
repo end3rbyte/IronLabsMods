@@ -8,7 +8,7 @@ namespace IronLabs.NoServerPassword
     {
         private const string PluginGuid = "IronLabs.NoServerPassword";
         private const string PluginName = "IronLabs.NoServerPassword";
-        private const string PluginVersion = "1.0.7";
+        private const string PluginVersion = "1.0.6";
 
         internal static ModLog Log { get; private set; }
 
