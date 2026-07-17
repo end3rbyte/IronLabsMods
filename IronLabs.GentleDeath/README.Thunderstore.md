@@ -10,8 +10,6 @@ Keeps equipable items after death while moving other inventory items to the tomb
 - Safely retains items when the tombstone has no room.
 - Replaces the world's vanilla inventory death penalty.
 
-A game-mode package may still declare GentleDeath as a server dependency.
-
 ## Installation
 
 | Client required | Server required |

@@ -10,7 +10,7 @@ Keeps equipable items after death while moving other inventory items to the tomb
 - Keeps an item safely when the tombstone has no available space.
 - Replaces the world's configured vanilla inventory death penalty.
 
-Equipable items follow Valheim's `ItemData.IsEquipable()` classification. A game-mode package may require this client-side mod on its server as a declared dependency.
+Equipable items follow Valheim's `ItemData.IsEquipable()` classification.
 
 ## Installation
 
