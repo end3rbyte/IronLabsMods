@@ -14,7 +14,7 @@ namespace IronLabs.SavesCharactersOnStop
     {
         private const string PluginGuid = "IronLabs.SavesCharactersOnStop";
         private const string PluginName = "IronLabs.SavesCharactersOnStop";
-        private const string PluginVersion = "1.0.1";
+        private const string PluginVersion = "1.0.2";
         private const string DisableRestartCommandSwitch = "--disable-restart-command";
         internal static ModLog Log { get; private set; }
         internal static GracefulShutdownCoordinator Coordinator { get; private set; }
