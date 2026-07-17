@@ -17,7 +17,7 @@ namespace IronLabs.Moderator
         internal static ModLog ModLogger { get; private set; }
         private const string PluginGuid = "IronLabs.Moderator";
         private const string PluginName = "IronLabs.Moderator";
-        private const string PluginVersion = "1.0.2";
+        private const string PluginVersion = "1.0.3";
 
         private void Awake()
         {
