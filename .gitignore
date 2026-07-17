@@ -2,7 +2,7 @@
 /*.user
 /**/bin/
 /**/obj/
-/dist/
+dist/
 /scripts/deploy/logs/
 /launcher/*.log
 tmp/
