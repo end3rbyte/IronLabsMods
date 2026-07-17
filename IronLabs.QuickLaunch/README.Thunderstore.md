@@ -22,6 +22,8 @@ Automatically resumes the last local or multiplayer Valheim session.
 |---|---|
 | Yes | No |
 
+Read the [full documentation](https://github.com/end3rbyte/IronLabsMods/blob/main/IronLabs.QuickLaunch/README.md) on GitHub.
+
 ## Contact
 
 Report bugs through [GitHub Issues](https://github.com/end3rbyte/IronLabsMods/issues).

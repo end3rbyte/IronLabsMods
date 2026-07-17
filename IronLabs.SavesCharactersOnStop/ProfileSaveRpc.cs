@@ -2,9 +2,19 @@ using System;
 using System.Collections;
 using System.Text.RegularExpressions;
 using HarmonyLib;
+using UnityEngine;
 
 namespace IronLabs.SavesCharactersOnStop
 {
+    [HarmonyPatch(typeof(ZNet), "Start")]
+    internal static class PendingExitRequestPatch
+    {
+        private static void Postfix()
+        {
+            SavesCharactersOnStopPlugin.Coordinator?.ProcessPendingExitRequest();
+        }
+    }
+
     [HarmonyPatch(typeof(ZNet), "OnNewConnection")]
     internal static class ProfileSaveRequestRpc
     {
@@ -33,8 +43,18 @@ namespace IronLabs.SavesCharactersOnStop
 
         private static IEnumerator SaveWhenReady(ZRpc serverRpc, string requestId)
         {
+            ServerCharactersTransferTracker.BeginShutdownRequest();
+            float deadline = Time.realtimeSinceStartup + 10f;
             while (ServerCharactersTransferTracker.IsSendingProfile)
             {
+                if (Time.realtimeSinceStartup >= deadline)
+                {
+                    SavesCharactersOnStopPlugin.Log.LogWarning(
+                        "The active ServerCharacters transfer did not finish within 10 seconds; saving anyway.");
+                    ServerCharactersTransferTracker.Reset();
+                    break;
+                }
+
                 yield return null;
             }
 
@@ -50,6 +70,20 @@ namespace IronLabs.SavesCharactersOnStop
     {
         private const string ProfileRpc = "ServerCharacters PlayerProfile";
         internal static bool IsSendingProfile { get; private set; }
+
+        internal static void BeginShutdownRequest()
+        {
+            if (IsSendingProfile)
+            {
+                SavesCharactersOnStopPlugin.Log.LogInfo(
+                    "Waiting for the active ServerCharacters transfer before the shutdown save.");
+            }
+        }
+
+        internal static void Reset()
+        {
+            IsSendingProfile = false;
+        }
 
         private static void Prefix(string method, object[] parameters)
         {

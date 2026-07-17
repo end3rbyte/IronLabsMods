@@ -18,6 +18,8 @@ Install the same version everywhere so the peer owning the stone can perform the
 |---|---|
 | Yes | Yes |
 
+Read the [full documentation](https://github.com/end3rbyte/IronLabsMods/blob/main/IronLabs.GetMyTrophyBack/README.md) on GitHub.
+
 ## Contact
 
 Report bugs through [GitHub Issues](https://github.com/end3rbyte/IronLabsMods/issues).

@@ -27,19 +27,6 @@ Provides server-authorized commands and tools for Valheim administrators.
 
 `itemset` supports `meadows`, `blackforest`, `swamp`, `mountain`, and `plains`. Existing items are placed in a tombstone.
 
-## Vanilla Administrator Commands
-
-| Command | Purpose |
-|---|---|
-| `kick <name/ip/userID>` | Disconnects a player. |
-| `ban <name/ip/userID>` | Bans a player. |
-| `unban <ip/userID>` | Removes a ban. |
-| `banned` | Lists banned players. |
-| `save` | Saves the world and player profiles. |
-| `optterrain` | Converts old terrain modifications. |
-
-These commands remain controlled by Valheim's `adminlist.txt`.
-
 ## Installation
 
 | Client required | Server required |

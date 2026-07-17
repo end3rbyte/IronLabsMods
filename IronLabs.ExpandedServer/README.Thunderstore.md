@@ -25,6 +25,8 @@ Raises Valheim's server capacity to a configurable player limit.
 |---|---|
 | Yes | Yes |
 
+Read the [full documentation](https://github.com/end3rbyte/IronLabsMods/blob/main/IronLabs.ExpandedServer/README.md) on GitHub.
+
 ## Contact
 
 Report bugs through [GitHub Issues](https://github.com/end3rbyte/IronLabsMods/issues).

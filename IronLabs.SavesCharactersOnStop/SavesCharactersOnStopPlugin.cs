@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Threading;
 using BepInEx;
 using IronLabs.SharedLib;
 using UnityEngine;
@@ -12,8 +13,6 @@ namespace IronLabs.SavesCharactersOnStop
         private const string PluginGuid = "IronLabs.SavesCharactersOnStop";
         private const string PluginName = "IronLabs.SavesCharactersOnStop";
         private const string PluginVersion = "1.0.0";
-        private float _elapsed;
-
         internal static ModLog Log { get; private set; }
         internal static GracefulShutdownCoordinator Coordinator { get; private set; }
         internal static SavesCharactersOnStopPlugin Instance { get; private set; }
@@ -22,7 +21,7 @@ namespace IronLabs.SavesCharactersOnStop
         {
             Instance = this;
             Log = InitializePlugin(PluginGuid);
-            Coordinator = new GracefulShutdownCoordinator();
+            Coordinator = new GracefulShutdownCoordinator(SynchronizationContext.Current);
             Log.LogInfo($"{PluginName} {PluginVersion} is loaded.");
         }
 
@@ -31,16 +30,15 @@ namespace IronLabs.SavesCharactersOnStop
             StartCoroutine(routine);
         }
 
-        private void FixedUpdate()
+        internal void QuitNextFrame()
         {
-            _elapsed += Time.fixedDeltaTime;
-            if (_elapsed < 1f)
-            {
-                return;
-            }
+            StartCoroutine(QuitAfterCurrentFrame());
+        }
 
-            _elapsed -= 1f;
-            Coordinator.Tick();
+        private static IEnumerator QuitAfterCurrentFrame()
+        {
+            yield return null;
+            Application.Quit();
         }
 
         private void OnDestroy()

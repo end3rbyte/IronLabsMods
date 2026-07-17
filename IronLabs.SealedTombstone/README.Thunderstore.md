@@ -28,6 +28,8 @@ Protects recent tombstones from unauthorized players while allowing owner-approv
 
 Install matching versions on the server and every participating client.
 
+Read the [full documentation](https://github.com/end3rbyte/IronLabsMods/blob/main/IronLabs.SealedTombstone/README.md) on GitHub.
+
 ## Contact
 
 Report bugs through [GitHub Issues](https://github.com/end3rbyte/IronLabsMods/issues).

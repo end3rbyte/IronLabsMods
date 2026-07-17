@@ -1,46 +1,125 @@
 # SavesCharactersOnStop
 
-Saves connected ServerCharacters profiles before a dedicated server stops or restarts.
+With this mod [ServerCharacters](https://thunderstore.io/c/valheim/p/Smoothbrain/ServerCharacters/) will automatically save all connected characters when the server stops or restarts.
 
 ## Features
 
-- Requests a synchronous profile save from every connected client.
+- Requests a fresh profile save from every connected client.
 - Waits for ServerCharacters to confirm each profile transfer.
+- Processes up to four profile saves at a time to limit shutdown load.
 - Disconnects saved players before the application exits.
 - Performs Valheim's normal world save and shutdown afterward.
 - Continues shutdown after a 90-second timeout and logs unconfirmed profiles.
-- Supports save-only, graceful quit, and world-only supervisor requests.
+- Intercepts a private dedicated-server exit request without requiring a separate supervisor.
+- Detects its private exit request immediately through filesystem notifications.
 
-## Requirements
+## Using the valheim start script
 
-| Dependency | Purpose |
-|---|---|
-| [ServerCharacters](https://github.com/blaxxun-boop/ServerCharacters/) | Stores authoritative character profiles on the server. |
-| Compatible process supervisor | Coordinates service stops with the plugin. |
+The same shutdown protocol can be used from a regular terminal. Create `start_server.sh` in Valheim's working directory:
 
-- The mod is automatic and has no configuration.
-- It affects dedicated servers only; peer-hosted worlds are unaffected.
-- It cannot recover data after a process or operating-system crash.
-- Install the supervisor for the first time while no players are connected.
+```bash
+#!/usr/bin/env bash
+set -u
 
-## Coordination Protocol
+readonly working_directory="$(cd -- "$(dirname -- "$0")" && pwd)"
+readonly exit_file="$working_directory/saves_characters_on_stop.drp"
+cd "$working_directory"
 
-Runtime files are stored under `BepInEx/run/SavesCharactersOnStop/`.
+./start_server_bepinex.sh \
+  -name "My Server Name" \
+  -port 2456 \
+  -world "Dedicated" \
+  -password "My Password" \
+  -public 1 > /dev/null 2>&1 &
+readonly valheim_pid=$!
 
-| File | Purpose |
-|---|---|
-| `stop.supported` | Identifies the active Valheim process. |
-| `stop.mode` | Selects an optional one-shot world-only stop. |
-| `stop.request` | Contains the unique supervisor request. |
-| `stop.ready` | Confirms completion or timeout for that request. |
+echo "Server started"
+echo
+read -r -p "Press RETURN to stop server"
 
-| Request | Result |
-|---|---|
-| `save:<id>` | Saves and disconnects players while keeping Valheim running. |
-| `quit:<id>` | Saves and disconnects players, then shuts Valheim down. |
-| `world:<id>` | Skips character requests and performs the vanilla shutdown. |
+readonly temporary_exit_file="$exit_file.$$"
+printf '%s\n' "$valheim_pid" >"$temporary_exit_file"
+mv -f "$temporary_exit_file" "$exit_file"
 
-The supervisor must allow at least 100 seconds and must not forward the original stop signal after receiving the matching confirmation.
+echo "Server exit signal set"
+echo "Waiting for character and world saves to finish"
+wait "$valheim_pid"
+echo "Server stopped; you can now close this terminal"
+```
+
+Make the script executable and run it:
+
+```bash
+chmod +x start_server.sh
+./start_server.sh
+```
+
+## Running with a service
+
+Create `/home/debian/Valheim/saves-characters-on-stop.sh`:
+
+```bash
+#!/usr/bin/env bash
+set -u
+
+readonly valheim_pid="${1:-}"
+readonly working_directory="$(cd -- "$(dirname -- "$0")" && pwd)"
+readonly exit_file="$working_directory/saves_characters_on_stop.drp"
+
+if [[ ! "$valheim_pid" =~ ^[0-9]+$ ]] || (( valheim_pid <= 1 )); then
+  exit 0
+fi
+if ! kill -0 "$valheim_pid" 2>/dev/null; then
+  exit 0
+fi
+
+readonly temporary_exit_file="$exit_file.$$"
+printf '%s\n' "$valheim_pid" >"$temporary_exit_file"
+mv -f "$temporary_exit_file" "$exit_file"
+while kill -0 "$valheim_pid" 2>/dev/null; do
+  sleep 1
+done
+```
+
+Make the stop script executable:
+
+```bash
+chmod +x /home/debian/Valheim/saves-characters-on-stop.sh
+```
+
+Create `/etc/systemd/system/valheim.service`. Adjust the description, user, paths, and Valheim launch arguments for your server:
+
+```ini
+[Unit]
+Description=Valheim dedicated server
+Wants=network.target
+After=syslog.target network-online.target
+
+[Service]
+Type=simple
+User=debian
+WorkingDirectory=/home/debian/Valheim
+ExecStart=/home/debian/Valheim/start_server_bepinex.sh
+ExecStop=/home/debian/Valheim/saves-characters-on-stop.sh $MAINPID
+KillMode=process
+KillSignal=SIGINT
+SendSIGKILL=yes
+TimeoutStopSec=120
+Restart=on-failure
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target
+```
+
+Enable and start the service:
+
+```bash
+sudo systemctl daemon-reload
+sudo systemctl enable --now valheim.service
+```
+
+Use `sudo systemctl stop valheim.service` or `sudo systemctl restart valheim.service` for a graceful character and world save. The 120-second systemd timeout is the final fallback.
 
 ## Installation
 

@@ -19,6 +19,8 @@ Allows public or crossplay Valheim servers to start with an empty password.
 |---|---|
 | No | Yes |
 
+Read the [full documentation](https://github.com/end3rbyte/IronLabsMods/blob/main/IronLabs.NoServerPassword/README.md) on GitHub.
+
 ## Contact
 
 Report bugs through [GitHub Issues](https://github.com/end3rbyte/IronLabsMods/issues).

@@ -18,6 +18,8 @@ A game-mode package may still declare GentleDeath as a server dependency.
 |---|---|
 | Yes | No |
 
+Read the [full documentation](https://github.com/end3rbyte/IronLabsMods/blob/main/IronLabs.GentleDeath/README.md) on GitHub.
+
 ## Contact
 
 Report bugs through [GitHub Issues](https://github.com/end3rbyte/IronLabsMods/issues).
