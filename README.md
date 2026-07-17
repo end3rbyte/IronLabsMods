@@ -10,6 +10,7 @@ concise player-oriented overview.
 | [GetMyTrophyBack](IronLabs.GetMyTrophyBack/) | Both | Drops a mounted boss trophy five seconds after its guardian power is selected. |
 | [Moderator](IronLabs.Moderator/) | Both | Adds multiplayer moderation commands gated by server-validated administrator access. |
 | [QuickLaunch](IronLabs.QuickLaunch/) | Client-only | Automatically resumes the last local or multiplayer session by default. |
+| [SavesCharactersOnStop](IronLabs.SavesCharactersOnStop/) | Both | Saves connected ServerCharacters profiles before a dedicated server stops. |
 | [ExpandedServer](IronLabs.ExpandedServer/) | Both | Raises the server player limit. |
 | [NoServerPassword](IronLabs.NoServerPassword/) | Server-only | Allows public and crossplay servers to start without a password. |
 | [SealedTombstone](IronLabs.SealedTombstone/) | Both | Protects tombstones and lets their owners approve access. |

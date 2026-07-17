@@ -1,0 +1,17 @@
+{
+  "name": "SavesCharactersOnStop",
+  "version_number": "1.0.0",
+  "website_url": "https://github.com/end3rbyte/IronLabsMods/tree/main/IronLabs.SavesCharactersOnStop",
+  "description": "Saves every connected ServerCharacters profile before a dedicated Valheim server stops.",
+  "dependencies": [
+    "denikson-BepInExPack_Valheim-5.4.2333",
+    "Smoothbrain-ServerCharacters-1.4.16"
+  ],
+  "categories": [
+    "ai-generated",
+    "mods",
+    "server-side",
+    "client-side",
+    "utility"
+  ]
+}

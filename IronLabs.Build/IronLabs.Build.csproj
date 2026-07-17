@@ -42,6 +42,7 @@
     <ProjectReference Include="..\..\IronLabs-Private\IronLabs.Social\IronLabs.Social.csproj"><Private>false</Private></ProjectReference>
     <ProjectReference Include="..\..\IronLabs-Private\IronLabs.VanillaGameMode\IronLabs.VanillaGameMode.csproj"><Private>false</Private></ProjectReference>
     <ProjectReference Include="..\IronLabs.SealedTombstone\IronLabs.SealedTombstone.csproj"><Private>false</Private></ProjectReference>
+    <ProjectReference Include="..\IronLabs.SavesCharactersOnStop\IronLabs.SavesCharactersOnStop.csproj"><Private>false</Private></ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
