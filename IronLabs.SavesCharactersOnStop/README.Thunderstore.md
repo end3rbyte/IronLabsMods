@@ -1,6 +1,6 @@
 # Plugin SavesCharactersOnStop
 
-Saves every connected ServerCharacters profile before a dedicated Valheim
+Saves every connected [ServerCharacters](https://thunderstore.io/c/valheim/p/Smoothbrain/ServerCharacters/) profile before a dedicated Valheim
 server stops or restarts.
 
 ## Installation Sides
@@ -9,7 +9,7 @@ server stops or restarts.
 |---|---|
 | Yes | Yes |
 
-Install this plugin and ServerCharacters on every client and on the dedicated
+Install this plugin and [ServerCharacters](https://thunderstore.io/c/valheim/p/Smoothbrain/ServerCharacters/) on every client and on the dedicated
 server. The server host must use a compatible process supervisor. On a
 controlled stop, clients save their current profiles, ServerCharacters writes
 them on the server, and Valheim then performs its normal world save and exit.

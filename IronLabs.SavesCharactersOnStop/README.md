@@ -1,6 +1,6 @@
 # Plugin SavesCharactersOnStop
 
-Saves every connected ServerCharacters profile before a dedicated Valheim
+Saves every connected [ServerCharacters](https://github.com/blaxxun-boop/ServerCharacters/) profile before a dedicated Valheim
 server stops or restarts. It complements ServerCharacters and prevents a
 controlled shutdown from restoring players to an older character state.
 
@@ -10,7 +10,7 @@ controlled shutdown from restoring players to an older character state.
 |---|---|
 | Yes | Yes |
 
-Install the plugin together with ServerCharacters on every client and on the
+Install the plugin together with [ServerCharacters](https://github.com/blaxxun-boop/ServerCharacters/) on every client and on the
 dedicated server. Peer-hosted worlds are unaffected.
 
 ## Behavior
