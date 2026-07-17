@@ -1,77 +1,52 @@
-# Plugin Moderator
+# Moderator
 
-Plugin logging is written through the shared `ModLog` wrapper with local
-timestamps and BepInEx log levels.
+Provides server-authorized commands and tools for Valheim administrators.
 
-IronLabs.Moderator provides server-authorized moderation commands for Valheim.
+## Features
+
+- Adds an administrator-validated moderator mode that starts disabled.
+- Enables god and ghost modes while moderator mode is active.
+- Hides and blocks vanilla cheat commands and `devcommands`.
+- Tracks connected players on the map after `exploremap`.
+- Supports Shift-click map teleportation for active moderators.
+- Displays a replicated green `[Moderator]` name suffix.
+- Records every Moderator command invocation at Info level.
 
 ## Commands
 
 | Command | Purpose | Access |
 |---|---|---|
-| `moderator` | Enables or disables moderator mode for the current session. | Administrator |
-| `exploremap` | Reveals the complete local map and continuously shows connected players. | Administrator |
-| `goto <player>` | Teleports the local administrator to another player. | Administrator |
-| `itemset <biome>` | Replaces current items with a Vanilla item set for `meadows`, `blackforest`, `swamp`, `mountain`, or `plains`. | Administrator |
-| `playerlist` | Lists online players with `[Moderator]` after administrator names. | Administrator |
-| `summon <player>` | Teleports a named player to the local administrator. | Administrator |
-| `resetmap` | Clears local map exploration. | Administrator |
-| `spawn` | Spawns a named Valheim prefab. | Administrator |
+| `moderator` | Enables or disables moderator mode for the session. | Administrator |
+| `exploremap` | Reveals the map and continuously displays connected players. | Active moderator |
+| `goto <player>` | Teleports to another player. | Active moderator |
+| `itemset <biome>` | Replaces current items with the selected vanilla biome item set. | Active moderator |
+| `playerlist` | Lists online players and identifies administrators. | Active moderator |
+| `summon <player>` | Teleports another player to the moderator. | Active moderator |
+| `resetmap` | Clears local map exploration and player tracking. | Active moderator |
+| `spawn <prefab> [amount] [level] [radius]` | Spawns a Valheim prefab. | Active moderator |
 
-Moderator mode is disabled by default when a session starts. The `moderator`
-command requires administrator access confirmed by the server and toggles the
-mode. Every other Moderator command requires both confirmed administrator
-access and enabled moderator mode. Commands are hidden from `help` when their
-requirements are not met. Every invocation is recorded at Info level with the
-administrator name and the complete command line.
+`itemset` supports `meadows`, `blackforest`, `swamp`, `mountain`, and `plains`. Existing items are placed in a tombstone.
 
-The vanilla `devcommands` command is not registered while Moderator is
-installed. Vanilla cheat commands are hidden from help and autocomplete, and
-their execution is blocked.
-
-## Valheim Vanilla Administrator Commands
-
-These commands are provided by Valheim Vanilla, not by Moderator. The server
-only accepts them from players listed in its `adminlist.txt`.
+## Vanilla Administrator Commands
 
 | Command | Purpose |
 |---|---|
-| `kick <name/ip/userID>` | Disconnects a player from the server. |
-| `ban <name/ip/userID>` | Adds a player to the server ban list. |
-| `unban <ip/userID>` | Removes a player from the server ban list. |
+| `kick <name/ip/userID>` | Disconnects a player. |
+| `ban <name/ip/userID>` | Bans a player. |
+| `unban <ip/userID>` | Removes a ban. |
 | `banned` | Lists banned players. |
-| `save` | Forces the server to save the world and player profiles. |
-| `optterrain` | Converts old terrain modifications to the current format. |
+| `save` | Saves the world and player profiles. |
+| `optterrain` | Converts old terrain modifications. |
 
-The `itemset` command uses Valheim's item sets for its first five biomes.
-Existing items are placed in a tombstone; there is no option to keep the
-current inventory.
+These commands remain controlled by Valheim's `adminlist.txt`.
 
-God mode and ghost mode are enabled with moderator mode. They are disabled when
-the mode is toggled off, the session ends, or administrator validation fails.
-
-After `exploremap`, connected players appear through Valheim's standard player
-markers even when they do not publicly share their positions. Positions refresh
-every 30 seconds. Tracking remains active until `resetmap`, moderator mode is
-disabled, or the session ends.
-
-Administrators with moderator mode enabled can hold Left Shift and left-click
-the large map to teleport to the selected terrain position. A
-normal left-click keeps its vanilla behavior when the modifier is not held.
-
-`[Moderator]` is appended in green to an administrator's name while
-moderator mode is enabled. This display state is replicated to other players
-without changing the character profile name.
-
-## Installation Sides
+## Installation
 
 | Client required | Server required |
 |---|---|
 | Yes | Yes |
 
-The server validates administrator status against its Valheim `adminlist.txt`
-and sends the result to participating clients. Matching Moderator versions
-must be installed on the server and clients.
+Matching versions must be installed on the server and participating administrator clients.
 
 ## Contact
 

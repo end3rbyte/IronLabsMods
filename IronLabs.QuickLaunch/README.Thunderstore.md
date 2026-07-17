@@ -1,22 +1,22 @@
-# Plugin QuickLaunch
+# QuickLaunch
 
-Skip the repetitive menu flow and resume your last Valheim session automatically.
-This behavior is enabled by default and can be disabled by launching the game
-with `--quicklaunch false`.
+Automatically resumes the last local or multiplayer Valheim session.
 
-The mod remembers whether you last played locally or joined a server, selects
-the remembered character, and reconnects when the required world or recent
-server is still available.
+## Features
 
-## Important
+- Selects the remembered character.
+- Reopens the last local world.
+- Reconnects to a valid recent multiplayer server.
+- Safely returns to the menu when remembered data is unavailable.
+- Never stores or enters passwords.
 
-- It never stores or enters server passwords.
-- Missing characters, worlds, or recent servers safely return you to the menu.
-- This is most useful for shortcuts, launch scripts, and dedicated gaming PCs.
+## Valheim.exe Command Switches
 
-For complete behavior, installation details, and limitations, see the [full README](https://github.com/end3rbyte/IronLabsMods/blob/main/IronLabs.QuickLaunch/README.md).
+| Switch | Default | Purpose |
+|---|---:|---|
+| `--quicklaunch <true\|false>` | `true` | Controls automatic session resume. |
 
-## Installation Sides
+## Installation
 
 | Client required | Server required |
 |---|---|

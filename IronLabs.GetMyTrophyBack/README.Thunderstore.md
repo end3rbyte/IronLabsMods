@@ -1,20 +1,22 @@
-# Plugin GetMyTrophyBack
+# GetMyTrophyBack
 
-Keep the boss trophies used at the Sacrificial Stones. Five seconds after a
-player selects an unlocked guardian power, its mounted trophy drops onto the
-ground and can be recovered.
+Returns a boss trophy after its Sacrificial Stone power is selected.
 
-The power stays selected, but the trophy no longer remains freely available on
-the stone for every other player.
+## Features
 
-## Installation Sides
+- Starts a five-second timer after selecting a guardian power.
+- Drops the mounted trophy as a recoverable world item.
+- Keeps the selected power active.
+- Preserves stored trophy data.
+- Prevents duplicate drops from simultaneous requests.
+
+Install the same version everywhere so the peer owning the stone can perform the synchronized drop.
+
+## Installation
 
 | Client required | Server required |
 |---|---|
 | Yes | Yes |
-
-Install the same plugin version on the server and every participating client so
-the delayed network drop is available to whichever peer owns the stone.
 
 ## Contact
 

@@ -1,22 +1,18 @@
-# Plugin GentleDeath
+# GentleDeath
 
-Keep your weapons, armor, and tools with you after death. Only the treasures
-and raw materials gathered along your journey are moved to your tombstone.
+Keeps equipable items after death while moving other inventory items to the tombstone.
 
-Your shield, ammunition, utility items, and trinkets also stay equipped and
-ready after respawning.
+## Features
 
-## Important
+- Keeps weapons, tools, armor, shields, ammunition, utility items, and trinkets.
+- Preserves equipped items after respawning.
+- Moves treasures and raw materials to the tombstone.
+- Safely retains items when the tombstone has no room.
+- Replaces the world's vanilla inventory death penalty.
 
-This mod replaces the world's configured inventory death penalty. Install it on
-every client for consistent multiplayer behavior.
+A game-mode package may still declare GentleDeath as a server dependency.
 
-GentleDeath itself is client-side. If a game-mode package declares it as a
-mandatory server dependency, install it on the server as part of that package.
-
-For complete behavior, installation details, and limitations, see the [full README](https://github.com/end3rbyte/IronLabsMods/blob/main/IronLabs.GentleDeath/README.md).
-
-## Installation Sides
+## Installation
 
 | Client required | Server required |
 |---|---|

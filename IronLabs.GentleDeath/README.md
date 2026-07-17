@@ -1,25 +1,18 @@
-# Plugin GentleDeath
+# GentleDeath
 
-Keep your weapons, armor, and tools with you after death. Only the treasures
-and raw materials gathered along your journey are moved to your tombstone.
+Keeps equipable items after death while moving other inventory items to the tombstone.
 
-IronLabs.GentleDeath changes the Valheim death inventory split. Equipable items
-remain in the player's inventory and retain their equipped state, while
-non-equipable items are moved to the tombstone.
+## Features
 
-Equipable items are determined by Valheim's vanilla `ItemData.IsEquipable()`
-classification and include weapons, tools, armor, shields, bows, ammunition,
-torches, utility items, and trinkets.
+- Keeps weapons, tools, armor, shields, ammunition, utility items, and trinkets.
+- Preserves the equipped state of retained items.
+- Moves non-equipable treasures and materials to the tombstone.
+- Keeps an item safely when the tombstone has no available space.
+- Replaces the world's configured vanilla inventory death penalty.
 
-This behavior replaces the configured vanilla world death-penalty inventory
-rules. If a tombstone unexpectedly lacks space, an item is safely retained in
-the player's inventory and a warning is logged.
+Equipable items follow Valheim's `ItemData.IsEquipable()` classification. A game-mode package may require this client-side mod on its server as a declared dependency.
 
-GentleDeath works client-side by itself. A game-mode plugin may nevertheless
-declare it as a mandatory dependency on both sides; in that case, install the
-DLL on the server as required by that game mode.
-
-## Installation Sides
+## Installation
 
 | Client required | Server required |
 |---|---|

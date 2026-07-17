@@ -59,11 +59,26 @@ namespace IronLabs.SavesCharactersOnStop
             }
 
             int position = package.GetPos();
-            package.ReadLong();
-            int fragment = package.ReadInt();
-            int fragments = package.ReadInt();
-            package.SetPos(position);
-            IsSendingProfile = fragment < fragments - 1;
+            try
+            {
+                if (package.Size() < sizeof(long) + sizeof(int) + sizeof(int))
+                {
+                    return;
+                }
+
+                package.SetPos(0);
+                package.ReadLong();
+                int fragment = package.ReadInt();
+                int fragments = package.ReadInt();
+                if (fragments > 0 && fragment >= 0 && fragment < fragments)
+                {
+                    IsSendingProfile = fragment < fragments - 1;
+                }
+            }
+            finally
+            {
+                package.SetPos(position);
+            }
         }
     }
 

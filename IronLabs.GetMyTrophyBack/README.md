@@ -1,38 +1,30 @@
-# Plugin GetMyTrophyBack
+# GetMyTrophyBack
 
-Recover boss trophies after using them to unlock powers at Valheim's
-Sacrificial Stones.
+Returns a boss trophy after its Sacrificial Stone power is selected.
+
+## Features
+
+- Starts a five-second return timer when a player selects a guardian power.
+- Drops the mounted trophy as a recoverable world item.
+- Preserves the trophy's stored item data.
+- Uses the stone's network owner for an authoritative synchronized drop.
+- Prevents simultaneous requests from duplicating a trophy.
+- Supports modded guardian stones built on vanilla `ItemStand` powers.
 
 ## Behavior
 
 | Event | Result |
 |---|---|
-| A trophy is mounted | The associated power remains available normally |
-| A player selects that power | A five-second trophy return timer starts |
-| The timer finishes | The mounted trophy drops as a recoverable world item |
-| Another request reaches an empty stone | No additional trophy is created |
+| Trophy mounted | Its guardian power remains available. |
+| Power selected | The five-second return timer starts. |
+| Timer completed | The trophy drops into the world. |
+| Trophy already absent | No additional trophy is created. |
 
-The drop preserves the trophy's stored item data. Removal is performed by the
-network owner of the stone and synchronized to all peers, so simultaneous power
-selections cannot duplicate the trophy.
-
-## Installation Sides
+## Installation
 
 | Client required | Server required |
 |---|---|
 | Yes | Yes |
-
-Every player and the server must install the plugin. The activating client
-starts the timer, while the peer owning the Sacrificial Stone performs the
-authoritative network drop.
-
-## Compatibility
-
-| Area | Behavior |
-|---|---|
-| Vanilla powers and trophies | Supported |
-| Modded guardian stones using vanilla `ItemStand` powers | Supported |
-| Trophy already removed before the timer finishes | Safely ignored |
 
 ## Contact
 

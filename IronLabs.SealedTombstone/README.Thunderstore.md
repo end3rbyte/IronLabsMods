@@ -1,27 +1,32 @@
-# Plugin SealedTombstone
+# SealedTombstone
 
-Protect your tombstone from other players while still letting trusted friends
-recover it for you.
+Protects recent tombstones from unauthorized players while allowing owner-approved access.
 
-When someone requests access, the owner receives a standard Valheim Yes/No
-popup. Yes unlocks that tombstone permanently; No denies the request.
+## Features
 
-## Protection
+- Locks recent tombstones to their owners.
+- Uses a vanilla Yes/No popup for access requests.
+- Permanently unlocks a tombstone after approval.
+- Expires requests after 30 seconds and applies a two-minute cooldown.
+- Makes tombstones public after ten in-game days.
+- Blocks recent attackers from requesting access permanently.
 
-- Requests expire after 30 seconds and have a two-minute anti-spam cooldown.
-- Tombstones become public after ten in-game days.
-- Anyone who hurt or killed the owner during the two minutes before death can
-  never request access to that tombstone.
+## Access Rules
 
-Every participating client must install the mod for reliable multiplayer use.
+| Situation | Result |
+|---|---|
+| Owner approves | Tombstone permanently unlocks. |
+| Owner denies or request expires | Tombstone remains locked. |
+| Tombstone reaches ten days | Tombstone becomes public. |
+| Requester attacked the owner before death | The request is blocked. |
 
-For complete behavior, installation details, and limitations, see the [full README](https://github.com/end3rbyte/IronLabsMods/blob/main/IronLabs.SealedTombstone/README.md).
-
-## Installation Sides
+## Installation
 
 | Client required | Server required |
 |---|---|
 | Yes | Yes |
+
+Install matching versions on the server and every participating client.
 
 ## Contact
 
