@@ -8,7 +8,7 @@ namespace IronLabs.GetMyTrophyBack
     {
         private const string PluginGuid = "IronLabs.GetMyTrophyBack";
         private const string PluginName = "IronLabs.GetMyTrophyBack";
-        private const string PluginVersion = "1.0.3";
+        private const string PluginVersion = "1.0.4";
 
         internal static ModLog Log { get; private set; }
 
