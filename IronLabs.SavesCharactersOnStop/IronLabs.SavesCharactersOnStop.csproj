@@ -38,6 +38,7 @@
   <ItemGroup>
     <Compile Include="GracefulShutdownCoordinator.cs" />
     <Compile Include="ProfileSaveRpc.cs" />
+    <Compile Include="RestartServerCommand.cs" />
     <Compile Include="SavesCharactersOnStopPlugin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

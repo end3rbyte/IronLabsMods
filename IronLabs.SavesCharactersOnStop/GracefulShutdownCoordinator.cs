@@ -139,6 +139,17 @@ namespace IronLabs.SavesCharactersOnStop
             CompleteIfFinished();
         }
 
+        internal bool RequestRestart()
+        {
+            if (!CanCoordinateShutdown() || _requestId != null || _shutdownCommitted)
+            {
+                return false;
+            }
+
+            Start(ZNet.instance);
+            return true;
+        }
+
         internal void ProcessPendingExitRequest()
         {
             if (_exitRequestPending)
