@@ -21,8 +21,6 @@ Install [ServerCharacters](https://thunderstore.io/c/valheim/p/Smoothbrain/Serve
 |---|---|
 | Yes | Yes |
 
-The server service must write its Valheim PID to `saves_characters_on_stop.drp` when stopping and wait at least 100 seconds before forcing termination. Copy the stop script and systemd configuration from the [GitHub README](https://github.com/end3rbyte/IronLabsMods/tree/main/IronLabs.SavesCharactersOnStop#service-configuration).
-
 Read the [full documentation](https://github.com/end3rbyte/IronLabsMods/blob/main/IronLabs.SavesCharactersOnStop/README.md) on GitHub.
 
 ## Contact

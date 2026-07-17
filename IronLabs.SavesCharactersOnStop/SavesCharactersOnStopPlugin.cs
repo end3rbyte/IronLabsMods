@@ -12,7 +12,7 @@ namespace IronLabs.SavesCharactersOnStop
     {
         private const string PluginGuid = "IronLabs.SavesCharactersOnStop";
         private const string PluginName = "IronLabs.SavesCharactersOnStop";
-        private const string PluginVersion = "1.0.0";
+        private const string PluginVersion = "1.0.1";
         internal static ModLog Log { get; private set; }
         internal static GracefulShutdownCoordinator Coordinator { get; private set; }
         internal static SavesCharactersOnStopPlugin Instance { get; private set; }
