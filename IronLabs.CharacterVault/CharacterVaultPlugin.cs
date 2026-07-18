@@ -1,6 +1,4 @@
-using System;
 using System.Collections;
-using System.Linq;
 using System.Threading;
 using BepInEx;
 using IronLabs.SharedLib;
@@ -15,21 +13,15 @@ namespace IronLabs.CharacterVault
         private const string PluginGuid = "IronLabs.CharacterVault";
         private const string PluginName = "IronLabs.CharacterVault";
         private const string PluginVersion = "1.0.2";
-        private const string DisableRestartCommandSwitch = "--disable-restart-command";
         internal static ModLog Log { get; private set; }
         internal static GracefulShutdownCoordinator Coordinator { get; private set; }
         internal static CharacterVaultPlugin Instance { get; private set; }
-        internal static bool RestartCommandEnabled { get; private set; }
 
         private void Awake()
         {
             Instance = this;
             Log = InitializePlugin(PluginGuid);
-            RestartCommandEnabled = !Environment.GetCommandLineArgs().Contains(DisableRestartCommandSwitch);
             Coordinator = new GracefulShutdownCoordinator(SynchronizationContext.Current);
-            RestartServerCommand.Register();
-            Log.LogDebug($"The restartserver command is " +
-                $"{(RestartCommandEnabled ? "enabled" : "disabled")}.");
             Log.LogInfo($"{PluginName} {PluginVersion} is loaded.");
         }
 
@@ -54,7 +46,6 @@ namespace IronLabs.CharacterVault
             Coordinator?.Dispose();
             Coordinator = null;
             Instance = null;
-            RestartCommandEnabled = false;
             ShutdownPlugin();
             Log = null;
         }

@@ -12,19 +12,6 @@ With this mod [ServerCharacters](https://thunderstore.io/c/valheim/p/Smoothbrain
 - Continues shutdown after a 90-second timeout and logs unconfirmed profiles.
 - Intercepts a private dedicated-server exit request without requiring a separate supervisor.
 - Detects its private exit request immediately through filesystem notifications.
-- Lets administrators restart a systemd-managed server gracefully from the console.
-
-## Commands
-
-| Command | Access | Description |
-|---|---|---|
-| `restartserver` | Administrator | Saves connected characters and the world, then restarts the dedicated server. |
-
-## Valheim.exe Command Arguments Added
-
-| Argument | Default | Description |
-|---|---|---|
-| `--disable-restart-command` | `false` | Disables the `restartserver` command on this server. |
 
 ## Using the valheim start script
 
@@ -132,7 +119,7 @@ sudo systemctl daemon-reload
 sudo systemctl enable --now valheim.service
 ```
 
-Use `sudo systemctl stop valheim.service`, `sudo systemctl restart valheim.service`, or the administrator-only `restartserver` command for a graceful character and world save. `Restart=always` lets the command relaunch Valheim, while an explicit `systemctl stop` remains stopped. The 120-second systemd timeout is the final fallback.
+Use `sudo systemctl stop valheim.service` or `sudo systemctl restart valheim.service` for a graceful character and world save. An explicit `systemctl stop` remains stopped, and the 120-second systemd timeout is the final fallback.
 
 ## Installation
 
