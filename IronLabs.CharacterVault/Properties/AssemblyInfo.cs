@@ -1,11 +1,11 @@
 using System.Reflection;
 using System.Runtime.InteropServices;
 
-[assembly: AssemblyTitle("IronLabs.SavesCharactersOnStop")]
+[assembly: AssemblyTitle("IronLabs.CharacterVault")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("IronLabs.SavesCharactersOnStop")]
+[assembly: AssemblyProduct("IronLabs.CharacterVault")]
 [assembly: AssemblyCopyright("Copyright © 2026")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

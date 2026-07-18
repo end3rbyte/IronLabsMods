@@ -6,19 +6,19 @@ using BepInEx;
 using IronLabs.SharedLib;
 using UnityEngine;
 
-namespace IronLabs.SavesCharactersOnStop
+namespace IronLabs.CharacterVault
 {
     [BepInPlugin(PluginGuid, PluginName, PluginVersion)]
     [BepInDependency("org.bepinex.plugins.servercharacters", BepInDependency.DependencyFlags.HardDependency)]
-    public sealed class SavesCharactersOnStopPlugin : IronLabsPlugin
+    public sealed class CharacterVaultPlugin : IronLabsPlugin
     {
-        private const string PluginGuid = "IronLabs.SavesCharactersOnStop";
-        private const string PluginName = "IronLabs.SavesCharactersOnStop";
+        private const string PluginGuid = "IronLabs.CharacterVault";
+        private const string PluginName = "IronLabs.CharacterVault";
         private const string PluginVersion = "1.0.2";
         private const string DisableRestartCommandSwitch = "--disable-restart-command";
         internal static ModLog Log { get; private set; }
         internal static GracefulShutdownCoordinator Coordinator { get; private set; }
-        internal static SavesCharactersOnStopPlugin Instance { get; private set; }
+        internal static CharacterVaultPlugin Instance { get; private set; }
         internal static bool RestartCommandEnabled { get; private set; }
 
         private void Awake()

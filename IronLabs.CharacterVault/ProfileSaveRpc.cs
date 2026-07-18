@@ -4,14 +4,14 @@ using System.Text.RegularExpressions;
 using HarmonyLib;
 using UnityEngine;
 
-namespace IronLabs.SavesCharactersOnStop
+namespace IronLabs.CharacterVault
 {
     [HarmonyPatch(typeof(ZNet), "Start")]
     internal static class PendingExitRequestPatch
     {
         private static void Postfix()
         {
-            SavesCharactersOnStopPlugin.Coordinator?.ProcessPendingExitRequest();
+            CharacterVaultPlugin.Coordinator?.ProcessPendingExitRequest();
         }
     }
 
@@ -28,7 +28,7 @@ namespace IronLabs.SavesCharactersOnStop
             }
 
             peer.m_rpc.Register<string>(GracefulShutdownCoordinator.SaveStartedRpc,
-                SavesCharactersOnStopPlugin.Coordinator.RecordSaveStarted);
+                CharacterVaultPlugin.Coordinator.RecordSaveStarted);
         }
 
         private static void SaveProfile(ZRpc serverRpc, string requestId)
@@ -38,7 +38,7 @@ namespace IronLabs.SavesCharactersOnStop
                 return;
             }
 
-            SavesCharactersOnStopPlugin.Instance.Run(SaveWhenReady(serverRpc, requestId));
+            CharacterVaultPlugin.Instance.Run(SaveWhenReady(serverRpc, requestId));
         }
 
         private static IEnumerator SaveWhenReady(ZRpc serverRpc, string requestId)
@@ -49,7 +49,7 @@ namespace IronLabs.SavesCharactersOnStop
             {
                 if (Time.realtimeSinceStartup >= deadline)
                 {
-                    SavesCharactersOnStopPlugin.Log.LogWarning(
+                    CharacterVaultPlugin.Log.LogWarning(
                         "The active ServerCharacters transfer did not finish within 10 seconds; saving anyway.");
                     ServerCharactersTransferTracker.Reset();
                     break;
@@ -58,7 +58,7 @@ namespace IronLabs.SavesCharactersOnStop
                 yield return null;
             }
 
-            SavesCharactersOnStopPlugin.Log.LogMessage(
+            CharacterVaultPlugin.Log.LogMessage(
                 $"Saving the character for graceful shutdown request {requestId}.");
             serverRpc.Invoke(GracefulShutdownCoordinator.SaveStartedRpc, requestId);
             Game.instance.SavePlayerProfile(true);
@@ -75,7 +75,7 @@ namespace IronLabs.SavesCharactersOnStop
         {
             if (IsSendingProfile)
             {
-                SavesCharactersOnStopPlugin.Log.LogInfo(
+                CharacterVaultPlugin.Log.LogInfo(
                     "Waiting for the active ServerCharacters transfer before the shutdown save.");
             }
         }
@@ -123,7 +123,7 @@ namespace IronLabs.SavesCharactersOnStop
         {
             if (__result && ZNet.instance?.IsServer() == true)
             {
-                SavesCharactersOnStopPlugin.Coordinator.RecordSavedProfile(__instance);
+                CharacterVaultPlugin.Coordinator.RecordSavedProfile(__instance);
             }
         }
     }

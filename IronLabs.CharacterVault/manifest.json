@@ -1,7 +1,7 @@
 {
-  "name": "SavesCharactersOnStop",
+  "name": "CharacterVault",
   "version_number": "1.0.2",
-  "website_url": "https://github.com/end3rbyte/IronLabsMods/tree/main/IronLabs.SavesCharactersOnStop",
+  "website_url": "https://github.com/end3rbyte/IronLabsMods/tree/main/IronLabs.CharacterVault",
   "description": "With this mod ServerCharacters will automatically save all connected characters when the server stops or restarts.",
   "dependencies": [
     "denikson-BepInExPack_Valheim-5.4.2333",

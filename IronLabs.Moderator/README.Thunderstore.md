@@ -33,6 +33,8 @@ All commands except `moderator` require active moderator mode. The server valida
 |---|---|
 | Yes | Yes |
 
+Matching versions must be installed on the server and every client.
+
 Read the [full documentation](https://github.com/end3rbyte/IronLabsMods/blob/main/IronLabs.Moderator/README.md) on GitHub.
 
 ## Contact

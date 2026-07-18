@@ -1,4 +1,4 @@
-# SavesCharactersOnStop
+# CharacterVault
 
 With this mod [ServerCharacters](https://thunderstore.io/c/valheim/p/Smoothbrain/ServerCharacters/) will automatically save all connected characters when the server stops or restarts.
 
@@ -44,7 +44,7 @@ An explicit `systemctl stop valheim.service` still leaves the service stopped. S
 |---|---|
 | Yes | Yes |
 
-Read the [full documentation](https://github.com/end3rbyte/IronLabsMods/blob/main/IronLabs.SavesCharactersOnStop/README.md) on GitHub.
+Read the [full documentation](https://github.com/end3rbyte/IronLabsMods/blob/main/IronLabs.CharacterVault/README.md) on GitHub.
 
 ## Contact
 

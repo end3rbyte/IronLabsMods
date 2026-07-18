@@ -1,4 +1,4 @@
-# SavesCharactersOnStop
+# CharacterVault
 
 With this mod [ServerCharacters](https://thunderstore.io/c/valheim/p/Smoothbrain/ServerCharacters/) will automatically save all connected characters when the server stops or restarts.
 
@@ -35,7 +35,7 @@ The same shutdown protocol can be used from a regular terminal. Create `start_se
 set -u
 
 readonly working_directory="$(cd -- "$(dirname -- "$0")" && pwd)"
-readonly exit_file="$working_directory/saves_characters_on_stop.drp"
+readonly exit_file="$working_directory/character_vault.drp"
 cd "$working_directory"
 
 ./start_server_bepinex.sh \
@@ -69,7 +69,7 @@ chmod +x start_server.sh
 
 ## Running with a service
 
-Create `/home/debian/Valheim/saves-characters-on-stop.sh`:
+Create `/home/debian/Valheim/character-vault.sh`:
 
 ```bash
 #!/usr/bin/env bash
@@ -77,7 +77,7 @@ set -u
 
 readonly valheim_pid="${1:-}"
 readonly working_directory="$(cd -- "$(dirname -- "$0")" && pwd)"
-readonly exit_file="$working_directory/saves_characters_on_stop.drp"
+readonly exit_file="$working_directory/character_vault.drp"
 
 if [[ ! "$valheim_pid" =~ ^[0-9]+$ ]] || (( valheim_pid <= 1 )); then
   exit 0
@@ -97,7 +97,7 @@ done
 Make the stop script executable:
 
 ```bash
-chmod +x /home/debian/Valheim/saves-characters-on-stop.sh
+chmod +x /home/debian/Valheim/character-vault.sh
 ```
 
 Create `/etc/systemd/system/valheim.service`. Adjust the description, user, paths, and Valheim launch arguments for your server:
@@ -113,7 +113,7 @@ Type=simple
 User=debian
 WorkingDirectory=/home/debian/Valheim
 ExecStart=/home/debian/Valheim/start_server_bepinex.sh
-ExecStop=/home/debian/Valheim/saves-characters-on-stop.sh $MAINPID
+ExecStop=/home/debian/Valheim/character-vault.sh $MAINPID
 KillMode=process
 KillSignal=SIGINT
 SendSIGKILL=yes

@@ -6,13 +6,13 @@ using System.Linq;
 using System.Threading;
 using UnityEngine;
 
-namespace IronLabs.SavesCharactersOnStop
+namespace IronLabs.CharacterVault
 {
     internal sealed class GracefulShutdownCoordinator : IDisposable
     {
-        internal const string SaveRequestRpc = "SavesCharactersOnStop SaveRequest";
-        internal const string SaveStartedRpc = "SavesCharactersOnStop SaveStarted";
-        private const string ExitFilePath = "saves_characters_on_stop.drp";
+        internal const string SaveRequestRpc = "CharacterVault SaveRequest";
+        internal const string SaveStartedRpc = "CharacterVault SaveStarted";
+        private const string ExitFilePath = "character_vault.drp";
         private const int MaximumConcurrentSaves = 4;
         private const int ShutdownTimeoutSeconds = 90;
         private readonly HashSet<ZNetPeer> _pendingPeers = new HashSet<ZNetPeer>();
@@ -42,7 +42,7 @@ namespace IronLabs.SavesCharactersOnStop
             }
             catch (Exception exception)
             {
-                SavesCharactersOnStopPlugin.Log.LogError(
+                CharacterVaultPlugin.Log.LogError(
                     $"Could not watch {ExitFilePath}; shutdown requests cannot be detected: {exception.Message}");
             }
         }
@@ -68,7 +68,7 @@ namespace IronLabs.SavesCharactersOnStop
                     requestedProcessId != Process.GetCurrentProcess().Id)
                 {
                     File.Delete(ExitFilePath);
-                    SavesCharactersOnStopPlugin.Log.LogWarning(
+                    CharacterVaultPlugin.Log.LogWarning(
                         $"Ignored a stale or invalid {ExitFilePath} request for process '{content}'.");
                     return;
                 }
@@ -78,7 +78,7 @@ namespace IronLabs.SavesCharactersOnStop
             }
             catch (Exception exception)
             {
-                SavesCharactersOnStopPlugin.Log.LogError(
+                CharacterVaultPlugin.Log.LogError(
                     $"Could not process {ExitFilePath}: {exception.Message}");
             }
         }
@@ -98,7 +98,7 @@ namespace IronLabs.SavesCharactersOnStop
 
             _startedRequests.Remove(peer);
             _requestedPeers.Remove(peer);
-            SavesCharactersOnStopPlugin.Log.LogMessage(
+            CharacterVaultPlugin.Log.LogMessage(
                 $"Confirmed graceful character save for {peer.m_playerName} ({_pendingPeers.Count} remaining).");
             ZNet.instance.Disconnect(peer);
             RequestNextProfiles();
@@ -133,7 +133,7 @@ namespace IronLabs.SavesCharactersOnStop
                 _pendingPeers.Add(peer);
                 _queuedPeers.Enqueue(peer);
             }
-            SavesCharactersOnStopPlugin.Log.LogMessage(
+            CharacterVaultPlugin.Log.LogMessage(
                 $"Shutdown requested; saving {_pendingPeers.Count} connected character(s).");
             RequestNextProfiles();
             CompleteIfFinished();
@@ -192,7 +192,7 @@ namespace IronLabs.SavesCharactersOnStop
             if (_watcherFailed)
             {
                 _watcherFailed = false;
-                SavesCharactersOnStopPlugin.Log.LogError(
+                CharacterVaultPlugin.Log.LogError(
                     $"The {ExitFilePath} watcher failed; shutdown requests may no longer be detected.");
             }
 
@@ -275,7 +275,7 @@ namespace IronLabs.SavesCharactersOnStop
 
         private void Complete()
         {
-            SavesCharactersOnStopPlugin.Log.LogMessage(
+            CharacterVaultPlugin.Log.LogMessage(
                 "All connected character profiles were written to disk; continuing the vanilla shutdown.");
             ContinueVanillaShutdown();
         }
@@ -283,14 +283,14 @@ namespace IronLabs.SavesCharactersOnStop
         private void CompleteAfterTimeout()
         {
             string players = string.Join(", ", _pendingPeers.Select(peer => peer.m_playerName).ToArray());
-            SavesCharactersOnStopPlugin.Log.LogWarning(
+            CharacterVaultPlugin.Log.LogWarning(
                 $"The {ShutdownTimeoutSeconds}-second shutdown save timeout expired with " +
                 $"{_pendingPeers.Count} unsaved character(s): {players}.");
             foreach (ZNetPeer peer in _pendingPeers)
             {
                 ZNet.instance.Disconnect(peer);
             }
-            SavesCharactersOnStopPlugin.Log.LogWarning(
+            CharacterVaultPlugin.Log.LogWarning(
                 "Continuing the vanilla server shutdown after the character save timeout.");
             ContinueVanillaShutdown();
         }
@@ -305,8 +305,8 @@ namespace IronLabs.SavesCharactersOnStop
             _startedRequests.Clear();
             _requestId = null;
             _shutdownCommitted = true;
-            SavesCharactersOnStopPlugin.Log.LogMessage("Starting the vanilla application shutdown.");
-            SavesCharactersOnStopPlugin.Instance.QuitNextFrame();
+            CharacterVaultPlugin.Log.LogMessage("Starting the vanilla application shutdown.");
+            CharacterVaultPlugin.Instance.QuitNextFrame();
         }
 
         private static bool HasActiveCharacter(ZNetPeer peer)

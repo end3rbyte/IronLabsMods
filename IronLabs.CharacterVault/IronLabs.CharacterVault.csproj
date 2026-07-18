@@ -7,8 +7,8 @@
     <Platform Condition="'$(Platform)' == ''">AnyCPU</Platform>
     <ProjectGuid>{70BCF48B-1C23-4B2A-8A4F-F01CC21E3EC5}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>IronLabs.SavesCharactersOnStop</RootNamespace>
-    <AssemblyName>IronLabs.SavesCharactersOnStop</AssemblyName>
+    <RootNamespace>IronLabs.CharacterVault</RootNamespace>
+    <AssemblyName>IronLabs.CharacterVault</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
@@ -39,7 +39,7 @@
     <Compile Include="GracefulShutdownCoordinator.cs" />
     <Compile Include="ProfileSaveRpc.cs" />
     <Compile Include="RestartServerCommand.cs" />
-    <Compile Include="SavesCharactersOnStopPlugin.cs" />
+    <Compile Include="CharacterVaultPlugin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

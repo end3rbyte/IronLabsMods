@@ -1,4 +1,4 @@
-namespace IronLabs.SavesCharactersOnStop
+namespace IronLabs.CharacterVault
 {
     internal static class RestartServerCommand
     {
@@ -20,18 +20,18 @@ namespace IronLabs.SavesCharactersOnStop
 
         private static object Execute(Terminal.ConsoleEventArgs args)
         {
-            if (!SavesCharactersOnStopPlugin.RestartCommandEnabled)
+            if (!CharacterVaultPlugin.RestartCommandEnabled)
             {
                 return "The restartserver command is disabled on this server.";
             }
 
-            if (!SavesCharactersOnStopPlugin.Coordinator.RequestRestart())
+            if (!CharacterVaultPlugin.Coordinator.RequestRestart())
             {
                 return "A server restart cannot be started in the current state.";
             }
 
             args.Context.AddString("Server restart requested; saving connected characters.");
-            SavesCharactersOnStopPlugin.Log.LogMessage("An administrator requested a graceful server restart.");
+            CharacterVaultPlugin.Log.LogMessage("An administrator requested a graceful server restart.");
             return true;
         }
     }

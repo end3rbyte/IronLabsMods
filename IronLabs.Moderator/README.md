@@ -33,7 +33,7 @@ Provides server-authorized commands and tools for Valheim administrators.
 |---|---|
 | Yes | Yes |
 
-Matching versions must be installed on the server and participating administrator clients.
+Matching versions must be installed on the server and every client.
 
 ## Contact
 
