@@ -14,6 +14,7 @@ concise player-oriented overview.
 | [ExpandedServer](IronLabs.ExpandedServer/) | Both | Raises the server player limit. |
 | [NoServerPassword](IronLabs.NoServerPassword/) | Server-only | Allows public and crossplay servers to start without a password. |
 | [SealedTombstone](IronLabs.SealedTombstone/) | Both | Protects tombstones and lets their owners approve access. |
+| [ServerStatus](IronLabs.ServerStatus/) | Server-only | Exposes live server information through a local JSON endpoint. |
 
 ## Shared library
 
