@@ -57,7 +57,9 @@ namespace IronLabs.ServerGateway
                 string platformUserId = players[index].m_userInfo.m_id.ToString();
                 json.Append("{\"name\":").Append(JsonString(players[index].m_name));
                 json.Append(",\"platformUserId\":").Append(JsonString(platformUserId));
-                json.Append(",\"steamId\":").Append(JsonString(GetSteamId(platformUserId))).Append('}');
+                json.Append(",\"steamId\":").Append(JsonString(GetSteamId(platformUserId)));
+                json.Append(",\"isAdmin\":").Append(ZNet.instance.PlayerIsAdmin(players[index].m_userInfo.m_id)
+                    ? "true" : "false").Append('}');
             }
         }
 
