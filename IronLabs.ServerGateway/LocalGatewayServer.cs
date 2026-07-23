@@ -121,6 +121,10 @@ namespace IronLabs.ServerGateway
             }
 
             string path = parts[1].Split('?')[0];
+            if (!Authenticate(stream, authorization))
+            {
+                return;
+            }
             if (parts[0] == "GET" && path == "/status")
             {
                 WriteResponse(stream, "200 OK", Interlocked.CompareExchange(ref _response, null, null));
@@ -128,18 +132,18 @@ namespace IronLabs.ServerGateway
             }
             if (parts[0] == "POST" && path == "/commands/save")
             {
-                HandleSave(stream, authorization);
+                HandleSave(stream);
                 return;
             }
             WriteResponse(stream, "404 Not Found", "{\"error\":\"not_found\"}");
         }
 
-        private void HandleSave(Stream stream, string authorization)
+        private bool Authenticate(Stream stream, string authorization)
         {
             if (_token.Length == 0)
             {
                 WriteResponse(stream, "503 Service Unavailable", "{\"error\":\"gateway_not_configured\"}");
-                return;
+                return false;
             }
             const string prefix = "Bearer ";
             string suppliedToken = authorization != null && authorization.StartsWith(prefix, StringComparison.OrdinalIgnoreCase)
@@ -147,8 +151,13 @@ namespace IronLabs.ServerGateway
             if (!FixedTimeEquals(_token, suppliedToken))
             {
                 WriteResponse(stream, "401 Unauthorized", "{\"error\":\"unauthorized\"}");
-                return;
+                return false;
             }
+            return true;
+        }
+
+        private void HandleSave(Stream stream)
+        {
             if (!_queueSave())
             {
                 WriteResponse(stream, "409 Conflict", "{\"error\":\"save_already_queued\"}");

@@ -4,7 +4,7 @@ Exposes live Valheim server information and authenticated commands through a loc
 
 ## Features
 
-- Reports the server and world names, player list and current player count.
+- Reports the server and world names, player list and current player count to authenticated callers.
 - Reports the active maximum player count and current in-game day.
 - Queues an immediate vanilla world save from an authenticated local request.
 - Listens only on `127.0.0.1` so an on-machine website backend can query it safely.
@@ -22,10 +22,10 @@ Exposes live Valheim server information and authenticated commands through a loc
 | BepInEx setting | Default | Purpose |
 |---|---:|---|
 | `RPC.Port` | `8765` | Local TCP port for the HTTP endpoint. |
-| `Gateway.Token` | Empty | Bearer token required by mutating commands. |
+| `Gateway.Token` | Empty | Bearer token required by every endpoint. |
 
 Restart the Valheim server after changing the port.
-The `IRONLABS_SERVER_GATEWAY_TOKEN` environment variable overrides `Gateway.Token` and is recommended for dedicated servers. Mutating commands remain unavailable when no token is configured.
+The `IRONLABS_SERVER_GATEWAY_TOKEN` environment variable overrides `Gateway.Token` and is recommended for dedicated servers. Every endpoint remains unavailable when no token is configured.
 
 ## Status endpoint
 
@@ -33,6 +33,7 @@ Request the current snapshot from the same machine as Valheim:
 
 ```http
 GET http://127.0.0.1:8765/status
+Authorization: Bearer <gateway-token>
 ```
 
 Example response:
@@ -77,6 +78,7 @@ The gateway accepts the save request immediately, then executes the vanilla `ZNe
 
 | Method | Path | Authentication | Behavior |
 |---|---|---|---|
+| `GET` | `/status` | Bearer token | Returns the current server and player snapshot. |
 | `POST` | `/commands/save` | Bearer token | Queues an immediate vanilla world and player-profile save. |
 
 ```http

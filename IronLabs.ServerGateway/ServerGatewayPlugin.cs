@@ -26,7 +26,7 @@ namespace IronLabs.ServerGateway
             _port = Config.Bind("RPC", "Port", DefaultPort,
                 "Local HTTP port used by the server gateway.");
             _token = Config.Bind("Gateway", "Token", string.Empty,
-                "Bearer token required by mutating gateway commands.");
+                "Bearer token required by every gateway endpoint.");
             Log.LogInfo($"{PluginName} {PluginVersion} is loaded.");
         }
 

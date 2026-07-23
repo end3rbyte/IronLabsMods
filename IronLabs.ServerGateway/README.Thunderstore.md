@@ -21,7 +21,7 @@ Exposes live Valheim server information and authenticated commands through a loc
 | BepInEx setting | Default | Purpose |
 |---|---:|---|
 | `RPC.Port` | `8765` | Local port for `GET /status`. |
-| `Gateway.Token` | Empty | Bearer token required by mutating commands. |
+| `Gateway.Token` | Empty | Bearer token required by every endpoint. |
 
 The JSON response contains server and world information plus `players` and `playerDetails`. Each player detail includes the character name, canonical platform user ID, and Steam ID when applicable.
 
@@ -29,6 +29,7 @@ The JSON response contains server and world information plus `players` and `play
 
 | Method | Path | Authentication | Behavior |
 |---|---|---|---|
+| `GET` | `/status` | Bearer token | Returns the current server and player snapshot. |
 | `POST` | `/commands/save` | Bearer token | Queues an immediate vanilla world and player-profile save. |
 
 Read the [full documentation](https://github.com/end3rbyte/IronLabsMods/blob/main/IronLabs.ServerGateway/README.md) on GitHub.
