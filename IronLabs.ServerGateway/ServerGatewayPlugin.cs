@@ -3,26 +3,30 @@ using BepInEx;
 using BepInEx.Configuration;
 using IronLabs.SharedLib;
 
-namespace IronLabs.ServerStatus
+namespace IronLabs.ServerGateway
 {
     [BepInPlugin(PluginGuid, PluginName, PluginVersion)]
-    public sealed class ServerStatusPlugin : IronLabsPlugin
+    public sealed class ServerGatewayPlugin : IronLabsPlugin
     {
-        private const string PluginGuid = "IronLabs.ServerStatus";
-        private const string PluginName = "IronLabs.ServerStatus";
+        private const string PluginGuid = "IronLabs.ServerGateway";
+        private const string PluginName = "IronLabs.ServerGateway";
         private const string PluginVersion = "1.0.0";
         private const int DefaultPort = 8765;
 
         private ConfigEntry<int> _port;
-        private LocalStatusServer _server;
+        private ConfigEntry<string> _token;
+        private LocalGatewayServer _server;
         private float _nextSnapshotTime;
+        private int _saveRequested;
         internal static ModLog Log { get; private set; }
 
         private void Awake()
         {
             Log = InitializePlugin(PluginGuid);
             _port = Config.Bind("RPC", "Port", DefaultPort,
-                "Local HTTP port used by the server status RPC.");
+                "Local HTTP port used by the server gateway.");
+            _token = Config.Bind("Gateway", "Token", string.Empty,
+                "Bearer token required by mutating gateway commands.");
             Log.LogInfo($"{PluginName} {PluginVersion} is loaded.");
         }
 
@@ -34,6 +38,7 @@ namespace IronLabs.ServerStatus
             }
 
             EnsureServerStarted();
+            ExecuteQueuedCommands();
             if (UnityEngine.Time.unscaledTime < _nextSnapshotTime)
             {
                 return;
@@ -57,8 +62,31 @@ namespace IronLabs.ServerStatus
                 port = DefaultPort;
             }
 
-            _server = new LocalStatusServer(port, Log);
+            string token = Environment.GetEnvironmentVariable("IRONLABS_SERVER_GATEWAY_TOKEN") ?? _token.Value;
+            _server = new LocalGatewayServer(port, token, QueueSave, Log);
             _server.Start();
+        }
+
+        private bool QueueSave()
+        {
+            return System.Threading.Interlocked.CompareExchange(ref _saveRequested, 1, 0) == 0;
+        }
+
+        private void ExecuteQueuedCommands()
+        {
+            if (System.Threading.Interlocked.Exchange(ref _saveRequested, 0) != 1)
+            {
+                return;
+            }
+
+            if (ZNet.instance == null || !ZNet.instance.IsServer())
+            {
+                Log.LogWarning("The queued save command was ignored because the server is not ready.");
+                return;
+            }
+
+            ZNet.instance.SaveWorldAndPlayerProfiles();
+            Log.LogInfo("The queued save command was executed.");
         }
 
         private void OnDestroy()

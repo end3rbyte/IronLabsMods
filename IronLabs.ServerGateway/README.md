@@ -1,11 +1,12 @@
-# ServerStatus
+# ServerGateway
 
-Exposes live Valheim server information through a local read-only JSON endpoint.
+Exposes live Valheim server information and authenticated commands through a local HTTP gateway.
 
 ## Features
 
 - Reports the server and world names, player list and current player count.
 - Reports the active maximum player count and current in-game day.
+- Queues an immediate vanilla world save from an authenticated local request.
 - Listens only on `127.0.0.1` so an on-machine website backend can query it safely.
 - Returns `worldCreatedAt` as `null` because Valheim does not store a creation date in its world save.
 - Supports dedicated servers and peer-hosted worlds.
@@ -21,10 +22,12 @@ Exposes live Valheim server information through a local read-only JSON endpoint.
 | BepInEx setting | Default | Purpose |
 |---|---:|---|
 | `RPC.Port` | `8765` | Local TCP port for the HTTP endpoint. |
+| `Gateway.Token` | Empty | Bearer token required by mutating commands. |
 
 Restart the Valheim server after changing the port.
+The `IRONLABS_SERVER_GATEWAY_TOKEN` environment variable overrides `Gateway.Token` and is recommended for dedicated servers. Mutating commands remain unavailable when no token is configured.
 
-## RPC
+## Status endpoint
 
 Request the current snapshot from the same machine as Valheim:
 
@@ -43,7 +46,14 @@ Example response:
   "maxPlayers": 20,
   "day": 148,
   "worldCreatedAt": null,
-  "players": ["Astrid", "Eirik"]
+  "players": ["Astrid", "Eirik"],
+  "playerDetails": [
+    {
+      "name": "Astrid",
+      "platformUserId": "Steam_76561198000000001",
+      "steamId": "76561198000000001"
+    }
+  ]
 }
 ```
 
@@ -57,8 +67,30 @@ Example response:
 | `day` | Number | Current in-game day. |
 | `worldCreatedAt` | String or null | Always null until Valheim stores this value in the world save. |
 | `players` | String array | Connected character names. |
+| `playerDetails` | Object array | Character names, canonical platform user IDs, and Steam IDs when applicable. |
 
 The endpoint is intentionally unavailable from other machines. Expose it through the website backend, with the backend's own authentication and HTTPS controls.
+
+## Commands
+
+The gateway accepts the save request immediately, then executes the vanilla `ZNet.instance.SaveWorldAndPlayerProfiles()` method on the Unity thread:
+
+| Method | Path | Authentication | Behavior |
+|---|---|---|---|
+| `POST` | `/commands/save` | Bearer token | Queues an immediate vanilla world and player-profile save. |
+
+```http
+POST http://127.0.0.1:8765/commands/save
+Authorization: Bearer <gateway-token>
+```
+
+Successful requests return `202 Accepted`:
+
+```json
+{"accepted":true,"command":"save"}
+```
+
+Only one save command can be queued at a time. A duplicate pending request returns `409 Conflict`.
 
 ## Contact
 

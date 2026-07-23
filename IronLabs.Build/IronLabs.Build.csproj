@@ -43,7 +43,7 @@
     <ProjectReference Include="..\..\IronLabs-Private\IronLabs.VanillaGameMode\IronLabs.VanillaGameMode.csproj"><Private>false</Private></ProjectReference>
     <ProjectReference Include="..\IronLabs.SealedTombstone\IronLabs.SealedTombstone.csproj"><Private>false</Private></ProjectReference>
     <ProjectReference Include="..\IronLabs.CharacterVault\IronLabs.CharacterVault.csproj"><Private>false</Private></ProjectReference>
-    <ProjectReference Include="..\IronLabs.ServerStatus\IronLabs.ServerStatus.csproj"><Private>false</Private></ProjectReference>
+    <ProjectReference Include="..\IronLabs.ServerGateway\IronLabs.ServerGateway.csproj"><Private>false</Private></ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

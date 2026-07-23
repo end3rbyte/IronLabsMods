@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using BepInEx.Bootstrap;
 
-namespace IronLabs.ServerStatus
+namespace IronLabs.ServerGateway
 {
     internal static class StatusSnapshot
     {
@@ -29,6 +29,8 @@ namespace IronLabs.ServerStatus
             json.Append(",\"worldCreatedAt\":").Append(JsonString(Environment.GetEnvironmentVariable("WORLD_CREATED_AT")));
             json.Append(",\"players\":[");
             AppendPlayers(json, playerList);
+            json.Append("],\"playerDetails\":[");
+            AppendPlayerDetails(json, playerList);
             return json.Append("]}").ToString();
         }
 
@@ -42,6 +44,28 @@ namespace IronLabs.ServerStatus
                 }
                 json.Append(JsonString(players[index].m_name));
             }
+        }
+
+        private static void AppendPlayerDetails(StringBuilder json, List<ZNet.PlayerInfo> players)
+        {
+            for (int index = 0; index < players.Count; index++)
+            {
+                if (index > 0)
+                {
+                    json.Append(',');
+                }
+                string platformUserId = players[index].m_userInfo.m_id.ToString();
+                json.Append("{\"name\":").Append(JsonString(players[index].m_name));
+                json.Append(",\"platformUserId\":").Append(JsonString(platformUserId));
+                json.Append(",\"steamId\":").Append(JsonString(GetSteamId(platformUserId))).Append('}');
+            }
+        }
+
+        private static string GetSteamId(string platformUserId)
+        {
+            const string prefix = "Steam_";
+            return platformUserId != null && platformUserId.StartsWith(prefix, StringComparison.Ordinal)
+                ? platformUserId.Substring(prefix.Length) : null;
         }
 
         private static int GetDay(ZNet network)
